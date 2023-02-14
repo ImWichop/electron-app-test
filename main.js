@@ -1,5 +1,5 @@
-const { app, BrowserWindow } = require("electron");
-const MainScreen = require("./mainScreen");
+const { app, BrowserWindow, ipcMain } = require("electron");
+const MainScreen = require("./global");
 const { autoUpdater } = require("electron-updater");
 
 let curWindow;
@@ -18,9 +18,14 @@ app.whenReady().then(() => {
   app.on("activate", function () {
     if (BrowserWindow.getAllWindows().length == 0) createWindow();
   });
+});
 
-  autoUpdater.checkForUpdates();
-  curWindow.showMessage(`Checking for updates. Current version ${app.getVersion()}`);
+// LISTENERS FOR ANGULAR
+
+ipcMain.on("checkingForUpdates", (event, message) => { 
+  autoUpdater.checkForUpdates()
+  curWindow.showMessage(`Checking updates. Current version ${app.getVersion()}`);
+
 });
 
 /*New Update Available*/
@@ -34,7 +39,6 @@ autoUpdater.on("update-not-available", (info) => {
   curWindow.showMessage(`No update available. Current version ${app.getVersion()}`);
 });
 
-/*Download Completion Message*/
 autoUpdater.on("update-downloaded", (info) => {
   curWindow.showMessage(`Update downloaded. Current version ${app.getVersion()}`);
 });
@@ -42,9 +46,6 @@ autoUpdater.on("update-downloaded", (info) => {
 autoUpdater.on("error", (info) => {
   curWindow.showMessage(info);
 });
-
-
-
 
 //Global exception handler
 process.on("uncaughtException", function (err) {

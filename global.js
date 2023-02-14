@@ -15,11 +15,10 @@ class MainScreen {
       width: this.position.width,
       height: this.position.height,
       removeMenu: true,
-      acceptFirstMouse: true,
+      // acceptFirstMouse: true,
       autoHideMenuBar: true,
       webPreferences: {
-        contextIsolation: true,
-        preload: path.join(__dirname, "./mainPreload.js"),
+        preload: path.join(__dirname, "./preload.js"),
       },
     });
 
@@ -40,9 +39,7 @@ class MainScreen {
   }
 
   showMessage(message) {
-    console.log("showMessage trapped");
-    console.log(message);
-    this.window.webContents.send("updateMessage", message);
+    this.window.webContents.send("onUpdates", message);
   }
 
   close() {
