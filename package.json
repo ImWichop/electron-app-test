@@ -1,6 +1,6 @@
 {
   "name": "electron-app",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "main.js",
   "scripts": {
     "ng": "ng",
@@ -9,7 +9,23 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "buildelec": "ng build && electron .",
-    "elec": "electron ."
+    "elec": "electron .",
+    "dist:elec": "electron-builder"
+  },
+  "repository": "https://github.com/ImWicho/electron-app-test",
+  "publish": {
+    "provider": "github",
+    "releaseType": "release"
+  },
+  "build": {
+    "appId": "com.wichodev.com",
+    "productName": "My electron app",
+    "win": {
+      "target": "nsis"
+    },
+    "directories": {
+      "output": "dist/packaged"
+    }
   },
   "private": true,
   "dependencies": {
@@ -23,7 +39,8 @@
     "@angular/router": "^15.1.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.12.0"
+    "zone.js": "~0.12.0",
+    "electron-updater": "^5.3.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^15.1.5",
@@ -31,6 +48,7 @@
     "@angular/compiler-cli": "^15.1.0",
     "@types/jasmine": "~4.3.0",
     "electron": "^23.0.0",
+    "electron-builder": "^23.6.0",
     "jasmine-core": "~4.5.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.1.0",
