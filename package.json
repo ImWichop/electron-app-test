@@ -1,6 +1,6 @@
 {
   "name": "electron-app",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "main.js",
   "author": "Luis Carrillo",
   "description": "This is an application using Angular + Electron",
@@ -10,9 +10,9 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "buildelec": "ng build && electron .",
-    "elec": "electron .",
-    "dist:elec": "electron-builder"
+    "build:dev": "ng build && electron .",
+    "dev": "electron .",
+    "dist:win": "electron-builder -c"
   },
   "repository": "https://github.com/ImWicho/electron-app-test",
   "publish": {
@@ -23,10 +23,12 @@
     "appId": "com.wichodev.com",
     "productName": "My electron app",
     "win": {
-      "target": "nsis"
+      "target": "nsis",
+      "icon": "src/assets/icono.png"
     },
     "directories": {
-      "output": "dist/${version}"
+      "output": "build",
+      "buildResources": "build"
     }
   },
   "private": true,
